@@ -1,0 +1,27 @@
+name: Staging quality checks
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install minimal QA tools
+        run: python -m pip install 'lxml>=5,<7'
+      - name: Verify staging safety
+        run: python qa/release_safety.py
+      - name: Verify links and catalogue
+        run: python qa/static.py
+      - name: Test enquiry handler using mock providers
+        run: node --test qa/enquiry.test.mjs
