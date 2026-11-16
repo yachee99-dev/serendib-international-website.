@@ -26,7 +26,7 @@ jobs:
                   path=pathlib.PurePosixPath(member.filename)
                   if path.is_absolute() or ".." in path.parts:
                       raise SystemExit("Unsafe archive entry: "+member.filename)
-                  if member.filename.startswith(("site/","functions/","migrations/","qa/")) or member.filename == ".github/workflows/quality.yml":
+                  if member.filename.startswith(("site/","functions/","migrations/","qa/")):
                       z.extract(member, ".")
           for needed in ("site/index.html","functions/api/enquiry.js",
                          "site/assets/products/ceylon-cinnamon-hero.webp",
@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site functions migrations qa .github/workflows/quality.yml
+          git add site functions migrations qa
           if ! git diff --staged --quiet; then
             git commit -m "Restore V9 Pages directory structure and media assets"
             git push origin HEAD:main
