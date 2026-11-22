@@ -1,0 +1,151 @@
+{
+  "version": "2026-11-16-marketing-pass",
+  "entries": [
+    {
+      "id": "portfolio",
+      "keywords": [
+        "product",
+        "spice",
+        "cinnamon",
+        "pepper",
+        "clove",
+        "cardamom",
+        "coconut",
+        "tea",
+        "cocopeat",
+        "grow",
+        "media",
+        "ingredients",
+        "sell",
+        "supply"
+      ],
+      "answer": "Our indicative sourcing portfolio covers Ceylon cinnamon and other spices, coconut-based food ingredients, cocopeat and growing media, and Ceylon teas. Specifications and availability are confirmed with suppliers for each request.",
+      "page": "products.html",
+      "label": "Explore our products"
+    },
+    {
+      "id": "samples",
+      "keywords": [
+        "sample",
+        "sampling",
+        "evaluate",
+        "testing",
+        "trial",
+        "courier",
+        "delivery of sample"
+      ],
+      "answer": "Sampling starts with your requested product, grade, quantity and destination. We confirm feasibility and any sample, courier or coordination costs before asking you to approve payment. No sample availability or dispatch date is guaranteed before supplier confirmation.",
+      "page": "sampling.html",
+      "label": "Sampling and evaluation"
+    },
+    {
+      "id": "private",
+      "keywords": [
+        "private label",
+        "packaging",
+        "branding",
+        "own brand",
+        "label",
+        "pack",
+        "custom",
+        "jar",
+        "pouch"
+      ],
+      "answer": "We can explore bulk or private-label packaging options through suitable manufacturers. Packaging formats, print specifications, minimum order quantities and actual services depend on supplier confirmation.",
+      "page": "private-label.html",
+      "label": "Private-label sourcing"
+    },
+    {
+      "id": "process",
+      "keywords": [
+        "source",
+        "sourcing",
+        "process",
+        "quality",
+        "check",
+        "supplier",
+        "manufacturer",
+        "verification",
+        "inspection"
+      ],
+      "answer": "Our sourcing process starts by gathering your product specifications, target volumes, market and documentation needs. We then assess supplier fit, request samples where appropriate, and coordinate confirmed requirements. Supplier claims and certifications must be checked independently.",
+      "page": "sourcing.html",
+      "label": "Our sourcing approach"
+    },
+    {
+      "id": "company",
+      "keywords": [
+        "company",
+        "about",
+        "experience",
+        "who",
+        "located",
+        "location",
+        "based",
+        "serendib",
+        "international"
+      ],
+      "answer": "Serendib International is the trading brand of Serendib Products Pvt Ltd, based in Sri Lanka. The business is supported by over a decade of international trade experience; it works as an independent sourcing and trade coordinator rather than owning plantations or factories.",
+      "page": "company.html",
+      "label": "Our company"
+    },
+    {
+      "id": "markets",
+      "keywords": [
+        "export",
+        "market",
+        "countries",
+        "international",
+        "shipping",
+        "trade",
+        "destination",
+        "logistics"
+      ],
+      "answer": "We work from Sri Lanka with an international sourcing perspective and experience involving Middle Eastern and Asian markets. Product-specific export logistics and destination documents depend on the buyer's market and require tailored confirmation.",
+      "page": "global-trade.html",
+      "label": "Global trade"
+    },
+    {
+      "id": "contact",
+      "keywords": [
+        "contact",
+        "reach",
+        "enquire",
+        "enquiry",
+        "quote",
+        "rfq",
+        "request",
+        "reply",
+        "email",
+        "response"
+      ],
+      "answer": "Our company email info@serendibinternational.com is active. You can contact the sourcing team directly, or use the contact page to generate a structured brief with product, estimated volume, destination, specifications and reply email. The preview does not automatically submit the form.",
+      "page": "contact.html",
+      "label": "Start an enquiry"
+    }
+  ],
+  "escalation_terms": [
+    "price",
+    "cost per",
+    "quotation",
+    "stock",
+    "available now",
+    "minimum order",
+    "moq",
+    "lead time",
+    "certificate",
+    "certification",
+    "organic certified",
+    "fda",
+    "halal",
+    "kosher",
+    "test report",
+    "sds",
+    "compliance",
+    "shipment tracking",
+    "incoterm",
+    "specific grade",
+    "discount",
+    "payment terms"
+  ]
+}
