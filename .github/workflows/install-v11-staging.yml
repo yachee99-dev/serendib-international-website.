@@ -8,7 +8,6 @@ permissions:
 
 jobs:
   install-v11:
-    if: github.ref == 'refs/heads/staging/v11'
     runs-on: ubuntu-latest
     steps:
       - name: Check out staging branch
