@@ -1,6 +1,6 @@
-# Serendib International V9
+# Serendib International V11
 
-An isolated V9 staging revision rebuilt from V8.1, with the catalogue verified against V7.2. Public domain and Zoho DNS were untouched. Direct enquiry submission is switched off. Review `RELEASE.md` for positioning, media and QA.
+Review V11_REVIEW.md for the current redesign, image needs, form destination and genuine QA results. Open site/index.html for a local review, or run python qa/serve.py for the header-aware local preview. The supporting V9/V10 notes are inherited history. Source uses static HTML/CSS/JavaScript, with the guarded Pages Function in functions/.
 
 ## Open staging locally
 

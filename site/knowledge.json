@@ -117,9 +117,15 @@
         "request",
         "reply",
         "email",
-        "response"
+        "response",
+        "phone",
+        "telephone",
+        "address",
+        "location",
+        "rathnakara",
+        "dehiwela"
       ],
-      "answer": "Our company email info@serendibinternational.com is active. You can contact the sourcing team directly, or use the contact page to generate a structured brief with product, estimated volume, destination, specifications and reply email. The preview does not automatically submit the form.",
+      "answer": "Serendib International (Serendib Products Pvt Ltd) can be contacted at info@serendibinternational.com or +94 76 076 5178. Our business address is Rathnakara Place, Dehiwela, Colombo, Sri Lanka. You can prepare a structured sourcing brief on the contact page and send it using your email app. Online form submission is not yet active.",
       "page": "contact.html",
       "label": "Start an enquiry"
     }

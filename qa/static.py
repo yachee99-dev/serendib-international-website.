@@ -19,7 +19,7 @@ for name, doc in docs.items():
             if value is None:
                 continue
             uri = urlsplit(value)
-            if uri.scheme == 'mailto':
+            if uri.scheme in ('mailto', 'tel'):
                 continue
             assert not uri.scheme and not uri.netloc, (name, value)
             target = unquote(uri.path) or name
