@@ -1,0 +1,6 @@
+Serendib International V9 — Pages staging build diagnostic
+Source directory: site/
+Created: 2026-11-22
+Expected deployment branch: main
+Purpose: confirm Cloudflare Pages is publishing the restored site/ folder and not the older repository-root copy.
+No business or private information is included.
