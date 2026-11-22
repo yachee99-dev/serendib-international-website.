@@ -1,0 +1,105 @@
+name: Install Serendib V11 on staging branch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install-v11:
+    if: github.ref == 'refs/heads/staging/v11'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging/v11
+          persist-credentials: true
+
+      - name: Verify uploaded V11 archive and unpack safely
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, pathlib, shutil, zipfile
+          source = pathlib.Path('.')
+          archives = sorted(source.glob('Serendib_V11_Staging*.zip'))
+          if len(archives) != 1:
+              raise SystemExit('Exactly one Serendib_V11_Staging*.zip is required on staging/v11.')
+          archive = archives[0]
+          expected_sha = 'c8c22105c6002b5bb7f0fdf9bc3e9b81756f08c6f80c77a97367a34369895f03'
+          digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+          if digest != expected_sha:
+              raise SystemExit('Archive checksum does not match the inspected V11 source; no site changes made.')
+          dest = pathlib.Path('/tmp/serendib-v11-stage')
+          if dest.exists():
+              shutil.rmtree(dest)
+          dest.mkdir()
+          allowed = ('site/', 'functions/', 'migrations/', 'qa/')
+          root_docs = {'README.md','V11_REVIEW.md','V10_REVIEW.md','MEDIA_PROMPTS.txt','DEPLOY_TO_CLOUDFLARE.md'}
+          with zipfile.ZipFile(archive) as z:
+              for entry in z.infolist():
+                  name = entry.filename
+                  parts = pathlib.PurePosixPath(name).parts
+                  if name.startswith('/') or '..' in parts or '\\' in name:
+                      raise SystemExit('Unsafe archive entry: ' + name)
+                  if name.startswith(allowed) or name in root_docs:
+                      z.extract(entry, dest)
+          required = ('site/index.html','site/house.css','site/404.html',
+                      'site/assets/editorial/cinnamon-1536.webp',
+                      'site/assets/editorial/coconut-1536.webp',
+                      'site/assets/editorial/tea-1536.webp',
+                      'site/assets/editorial/coir-1536.webp',
+                      'site/assets/fonts/noto-serif.woff',
+                      'site/assets/products/ceylon-cinnamon-hero.webp',
+                      'functions/api/enquiry.js','migrations/0001_enquiries.sql',
+                      'qa/enquiry.test.mjs')
+          for rel in required:
+              if not (dest / rel).is_file():
+                  raise SystemExit('Missing expected source asset: ' + rel)
+          html_count = len(list((dest/'site').glob('*.html')))
+          if html_count != 19:
+              raise SystemExit(f'Expected 19 V11 pages, found {html_count}')
+          config=(dest/'site/config.js').read_text()
+          if 'liveEnquiries: false' not in config:
+              raise SystemExit('Unsafe live enquiry setting; staging release cancelled')
+          if 'Disallow: /' not in (dest/'site/robots.txt').read_text():
+              raise SystemExit('Staging indexing disabled requirement missing')
+          if 'noindex' not in (dest/'site/_headers').read_text().lower():
+              raise SystemExit('Staging noindex header missing')
+          print('Verified V11 archive, staging safety flags, 19 pages, critical assets.')
+          PY
+
+      - name: Test enquiry handler before replacing staging files
+        run: node --test /tmp/serendib-v11-stage/qa/enquiry.test.mjs
+
+      - name: Restore complete V11 folder tree on staging branch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib, shutil
+          source=pathlib.Path('/tmp/serendib-v11-stage')
+          for folder in ('site','functions','migrations','qa'):
+              dst=pathlib.Path(folder)
+              if dst.exists():
+                  shutil.rmtree(dst)
+              shutil.copytree(source/folder,dst)
+          for name in ('README.md','V11_REVIEW.md','V10_REVIEW.md',
+                       'MEDIA_PROMPTS.txt','DEPLOY_TO_CLOUDFLARE.md'):
+              if (source/name).exists():
+                  shutil.copy2(source/name,name)
+          print('Replaced staging source with verified V11 files; main branch is untouched.')
+          PY
+
+      - name: Commit only website and source files to staging/v11
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A site functions migrations qa README.md V11_REVIEW.md V10_REVIEW.md MEDIA_PROMPTS.txt DEPLOY_TO_CLOUDFLARE.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'Deploy reviewed Serendib V11 website on staging branch'
+            git push origin HEAD:staging/v11
+          else
+            echo 'Staging V11 source already matches archive.'
+          fi
