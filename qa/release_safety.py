@@ -11,4 +11,4 @@ for page in site.glob('*.html'):
     doc=html.parse(str(page))
     assert doc.xpath('//meta[@name="robots" and contains(@content,"noindex")]'), page.name
 assert not list(site.rglob('*.env')) and not list(root.glob('.dev.vars*')), 'Do not commit secrets'
-print('STAGING SAFETY PASS: 18 pages remain noindex and online forms remain disabled')
+print(f"STAGING SAFETY PASS: {len(list(site.glob('*.html')))} pages remain noindex and online forms remain disabled")
